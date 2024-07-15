@@ -7,7 +7,7 @@
 # 1.2 Diagrams
 docs/diagrams/
 
-# 2. PYCHARM-SPECIFIC
+# 2. PYCHARM-SPECIFIC RULES
 
 # 2.1 User-specific
 .idea/**/workspace.xml
