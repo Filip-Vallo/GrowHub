@@ -5,7 +5,7 @@
 *.xlsx
 
 # 1.2 Diagrams
-docs/diagrams/
+docs/technical/diagrams/
 
 # 2. PYCHARM-SPECIFIC RULES
 
