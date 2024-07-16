@@ -4,7 +4,10 @@
 *.docx
 *.xlsx
 
-# 1.2 Diagrams
+# 1.2 Temporary files
+*.tmp
+
+# 1.3 Diagrams
 docs/technical/diagrams/
 
 # 2. PYCHARM-SPECIFIC RULES
