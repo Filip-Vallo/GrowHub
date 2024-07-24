@@ -3,7 +3,7 @@ _Project: **GrowHub**_ <br/>
 _Executed: **2024-07-22** on **Raspberry Pi 4 Model B Rev 1.2** (processor BCM2711, revision c03112) with 4GB RAM_ <br/><br/>
 
 ## 1. Installation of Raspberry Pi OS
-Source: https://www.raspberrypi.com/documentation/computers/os.html
+Source: https://www.raspberrypi.com/documentation/computers/os.html <br/><br/>
 1. [ ] **Download last version of Raspberry Pi OS (64-bit) image from https://raspberrypi.com/software/operating-systems/** <br/> 
 _Used version: with desktop and no recommended software from 2024-07-04: Linux kernel 6.6.31, Debian version 12 (bookworm)_ <br/><br/>
 2. [ ] **Download last version of Raspberry Pi Imager from https://www.raspberrypi.com/software/** <br/>
@@ -21,7 +21,7 @@ _... type_ `Y` _when prompted for confirmation and press_ `Enter` <br/><br/>
 
 
 ## 2. Firmware Update of Raspberry Pi
-Source: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your-firmware
+Source: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your-firmware <br/><br/>
 1. [ ] **Update the firmware of Raspberry Pi** <br/>
     * _... to the latest stable version:_ <br/>
     `sudo apt install --reinstall raspi-firmware` <br/>
@@ -41,7 +41,7 @@ Source: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#ra
 
 
 ## 4. SSH Connection to Raspberry Pi
-Source: https://www.raspberrypi.com/documentation/computers/remote-access.html#access-a-remote-terminal-with-ssh
+Source: https://www.raspberrypi.com/documentation/computers/remote-access.html#access-a-remote-terminal-with-ssh <br/><br/>
 
 ### 4.1 Enable the SSH server on Raspberry Pi
 1. [ ] **Create an empty file named ssh in the boot partition** <br/>
@@ -52,7 +52,7 @@ _<user_folder_path> = path to user folder of Raspberry Pi OS account to connect 
 3. [ ] **Create empty file named authorized_keys inside the .ssh folder** <br/> 
 `touch <user_folder_path>/.ssh/authorized_keys` <br/> <br/>
 4. [ ] **Restart the Raspberry Pi** <br/>
-`sudo reboot`
+`sudo reboot` <br/><br/>
 
 ### 4.2 Configure SSH keypair on remote computer
 1. [ ] **Check for existing remote user's SSH keys on remote computer  (from remote computer's terminal)** <br/>
@@ -72,7 +72,7 @@ _<user_folder_path> = path to user folder of remote user on remote computer_
    * _on Linux_: <br/>
    `ls <user_folder_path>/.ssh` <br/>
    * _on Windows 10_: <br/>
-   `dir <user_folder_path>\.ssh\ ` <br/>
+   `dir <user_folder_path>\.ssh\ ` <br/><br/>
 
 ### 4.3 Add remote user's public SSH key to the list of trusted SSH identities on Raspberry Pi
 1. [ ] **Start the SSH agent on remote computer (from remote computer's terminal or PowerShell as administrator)**
@@ -95,7 +95,7 @@ _<ip_address> = IP address of Raspberry Pi to connect to_
    `ssh-copy-id <username>@<ip address>`
    * _on Windows 10_: <br/>
    `type <user_folder_path>\.ssh\id_rsa.pub | ssh <username>@<ip address> "cat >> .ssh/authorized_keys"` <br/>
-   _... enter_ `<password>` _of Raspberry Pi OS user account to connect as, when prompted for password_ <br/><br/>
+   _... enter_ `<password>` _of Raspberry Pi OS user account to connect as, when prompted for password_ <br/><br/><br/>
 
 ### 4.4 Connect to Raspberry Pi's SSH server from remote computer (now without password)
 1. [ ] **Find the IP address of Raspberry Pi (from Raspberry Pi's terminal)** <br/>
@@ -113,7 +113,7 @@ https://www.raspberrypi.com/documentation/computers/configuration.html#non-inter
 https://www.raspberrypi.com/documentation/computers/configuration.html#device-trees-overlays-and-parameters <br/>
 https://www.raspberrypi.com/documentation/computers/configuration.html#part3 <br/>
 https://www.raspberrypi.com/documentation/computers/configuration.html#configure-uarts <br/>
-https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart <br/>
+https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart <br/><br/>
 
 ### 5.1 Enable necessary communication interfaces
 _by default all non-essential communication interfaces and their kernel modules are disabled on Raspberry Pi_ <br/>
@@ -144,7 +144,7 @@ _/dev/i2c-1 = file that manages i2c-1 bus on Raspberry Pi_ <br/>
    `sudo reboot` <br/><br/>
 8. [ ] **Check the list of functionalities implemented by i2c-1 bus** <br/>
 _(SMBus block read, SMBus block process call can be disabled; all the rest should be enabled)_ <br/>
-`i2cdetect -F 1` <br/>
+`i2cdetect -F 1` <br/><br/>
 
 ### 5.2 Grant root access to i2c-1 bus
 _/dev/i2c-1 = file that manages i2c-1 bus on Raspberry Pi (some python libraries need it to have root access to Raspberry Pi OS)_ <br/>
@@ -168,7 +168,7 @@ _/dev/i2c-1 = file that manages i2c-1 bus on Raspberry Pi (some python libraries
 _<user_name> = user name of Raspberry Pi OS account_ <br/>
 `sudo usermod -a -G i2c <user_name>` <br/><br/>
 5. [ ] **Restart the Raspberry Pi** <br/>
-`sudo reboot` <br/>
+`sudo reboot` <br/><br/>
 
 ### 5.3 Grant root access to GPIO pins
 _/dev/gpiomem = file that manages GPIO pins on Raspberry Pi (some python libraries need it to have root privileges)_ <br/>
@@ -199,32 +199,93 @@ _<user_name> = user name of Raspberry Pi OS account_ <br/>
 
 ## 6. Installation of GrowHub's Dependencies on Raspberry Pi
 Sources: <br/>
-https://www.python.org/downloads/source/ <br/>
+https://www.python.org/ <br/>
+https://realpython.com/installing-python/#how-to-build-python-from-source-code <br/>
+https://help.dreamhost.com/hc/en-us/articles/115000702772-Installing-a-custom-version-of-Python-3 <br/>
+https://packaging.python.org/en/latest/overview/ <br/>
 https://pipx.pypa.io/stable/docs/ <br/>
 https://virtualenv.pypa.io/en/latest/ <br/>
-https://realpython.com/installing-python/#how-to-build-python-from-source-code <br/>
-https://packaging.python.org/en/latest/tutorials/installing-packages/ <br/>
+https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3 <br/>
+https://pip.pypa.io/en/stable/user_guide/ <br/><br/>
 
-### 6.1 Create isolated Python environment to avoid overwriting system Python 
-1. [ ] **Install pipx that allows to install and manage python packages** <br/>
+### 6.1 Alt-install custom version of Python to avoid overwriting system Python
+1. [ ] **Install packages needed for Python's successful build creation from source code** <br/>
+`sudo apt-get update` <br/>
+`sudo apt-get upgrade` <br/>
+`sudo apt-get install -y make build-essential openssl libssl-dev wget curl llvm xz-utils` <br/>
+`sudo apt-get install -y python3-setuptools python3-pip python3-smbus2 tk-dev zlib1g-dev` <br/>
+`sudo apt-get install -y libbz2-dev libc6-dev libdb5.3-dev libexpat1-dev libffi-dev libgdbm-dev` <br/>
+`sudo apt-get install -y liblzma-dev libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev   ` <br/><br/>
+2. [ ] **Download Python 3.9.19 (XZ compressed source tarball) from https://www.python.org/downloads/source/** <br/>
+`wget -P $HOME/Downloads https://www.python.org/ftp/python/3.9.19/Python-3.9.19.tar.xz` <br/><br/>
+3. [ ] **Extract downloaded Python's source code** <br/>
+`tar -xvf $HOME/Downloads/Python-3.9.19.tar.xz` <br/><br/>
+4. [ ] **Configure extracted Python to autoinstall pip, use optimizations, and be installed to /opt/python-3.9.19** <br/>
+_/usr/local/bin = default path where altinstall command places executables when prefix is not configured_ <br/>
+_/opt/python-3.9.19 = path where we configured altinstall command to place executables with --prefix flag_ <br/>
+`cd $HOME/Downloads/Python-3.9.19` <br/>
+`./configure --enable-optimizations --with-ensurepip=install --prefix=/opt/python-3.9.19` <br/><br/>
+5. [ ] **Build Python from source code using make command with 4 parallel processes to speed it up** <br/>
+`make -j 4` <br/><br/>
+6. [ ] **Alt-install Python to avoid overwriting system Python** <br/>
+`sudo make altinstall` <br/><br/>
+7. [ ] **Verify successful alt-installation of Python** <br/>
+`export PATH=/opt/python-3.9.19/bin:$PATH` <br/><br/>
+`python3.9 --version` <br/>
+`ls -ls /opt/python-3.9.19/bin/python3.9` <br/><br/>
+
+### 6.2 Create project folder for GrowHub's codebase deployment written in Python
+1. [ ] **Create project folder named GrowHub inside $HOME/Projects** <br/>
+`cd $HOME` <br/>
+`mkdir Projects` <br/>
+`cd Projects` <br/>
+`mkdir GrowHub` <br/><br/>
+2. [ ] **Add $HOME/Projects/GrowHub folder to $PATH of terminal's (bash) .profile file** <br/>
+_.profile file is not read by bash if .bash_profile or .bash_login files exist in $HOME directory_ <br/>
+`sudo sh -c "echo -n '\n#Project GrowHub \nexport PATH=\"\$PATH:\$HOME/Projects/GrowHub\"\n' >> $HOME/.profile"` <br/><br/>
+
+### 6.3 Create isolated Python virtual environment for GrowHub project 
+1. [ ] **Install pipx tool that allows to install and manage python packages (smarter pip)** <br/>
 `sudo apt install pipx` <br/>
 `pipx ensurepath` <br/>
 `eval "$(register-python-argcomplete pipx)"` <br/><br/>
-2. [ ] **Restart the Raspberry Pi** <br/>
-`sudo reboot` <br/><br/>
-3. [ ] **Install virtualenv that allows to create isolated Python environments** <br/>
-`pipx install virtualenv` <br/>
+2. [ ] **Install virtualenv that allows to create isolated Python environments** <br/>
+`pipx install virtualenv` <br/><br/>
+3. [ ] **Verify successful installation of virtualenv** <br/>
 `virtualenv --help` <br/><br/>
+4. [ ] **Create Python virtual environment for GrowHub project named venv** <br/>
+`cd $HOME/Projects/GrowHub`
+`virtualenv -p /opt/python-3.9.19/bin/python3.9 venv` <br/><br/>
+5. [ ] **Verify successful creation of Python virtual environment by activating it** <br/>
+`source venv/bin/activate` <br/>
+`which python` <br/>
+`python --version` <br/>
+`deactivate` <br/>
+`which python` <br/>
+`python --version` <br/><br/>
+6. [ ] **Restart the Raspberry Pi** <br/>
+`sudo reboot` <br/><br/>
 
-config file /home/admin/.config/virtualenv/virtualenv.ini missing (change via env var VIRTUALENV_CONFIG_FILE)
+### 6.4 Install needed python libraries for GrowHub project
+1. [ ] **Activate GrowHub's virtual environment and verify its correct path and version** <br/>
+`cd $HOME/Projects/GrowHub`
+`source venv/bin/activate` <br/>
+`which python` <br/>
+`python --version` <br/><br/>
+2. [ ] **Update pip tool that allows to install and manage python packages** <br/>
+`python -m pip install --upgrade pip` <br/><br/>
+3. [ ] **List python libraries that are already installed in GrowHub's virtual environment** <br/>
+`python -m pip list` <br/><br/>
+4. [ ] **Install remaining python libraries needed for GrowHub project into its virtual environment** <br/>
+`pip install setuptools wheel docutils python-dateutil` <br/>
+`pip install smbus3 RPi.GPIO pigpio bme680` <br/><br/>
+5. [ ] **List outdated python libraries in GrowHub's virtual environment** <br/>
+`python -m pip list --outdated` <br/><br/>
+   * _... if there are any outdated libraries:_ <br/>
+   1. [ ] **Update outdated python libraries** <br/>
+   pip install --upgrade `pip list --outdated | awk 'NR>2 {print $1}'` <br/><br/>
+
+### 6.5 Installation of needed software tools for GrowHub project
 
 
-2. [ ] **Download Python 3.7.17 (Gzipped source tarball) from https://www.python.org/downloads/source/ and extract it to $HOME/Programs** <br/>
-`wget -qO- https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz | tar xvz -C $HOME/Programs` <br/><br/>
-2. [ ] **Install packages needed for python build installation (arm64 versions)** <br/>
-<br/>
 
-
-### 6.2 Installation of need software
-
-### 6.3 Installation of needed python libraries
