@@ -206,28 +206,32 @@ https://packaging.python.org/en/latest/overview/ <br/>
 https://pipx.pypa.io/stable/docs/ <br/>
 https://virtualenv.pypa.io/en/latest/ <br/>
 https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3 <br/>
-https://pip.pypa.io/en/stable/user_guide/ <br/><br/>
+https://pip.pypa.io/en/stable/user_guide/ <br/>
+https://www.geeksforgeeks.org/crontab-in-linux-with-examples/ <br/>
+https://learn.pimoroni.com/article/getting-started-with-bme680-breakout
+https://learn.adafruit.com/building-circuitpython/linux <br/>
+https://files.atlas-scientific.com/pi_sample_code.pdf <br/><br/>
 
 ### 6.1 Alt-install custom version of Python to avoid overwriting system Python
 1. [ ] **Install packages needed for Python's successful build creation from source code** <br/>
-`sudo apt-get update` <br/>
-`sudo apt-get upgrade` <br/>
-`sudo apt-get install -y make build-essential openssl libssl-dev wget curl llvm xz-utils` <br/>
-`sudo apt-get install -y python3-setuptools python3-pip python3-smbus2 tk-dev zlib1g-dev` <br/>
-`sudo apt-get install -y libbz2-dev libc6-dev libdb5.3-dev libexpat1-dev libffi-dev libgdbm-dev` <br/>
-`sudo apt-get install -y liblzma-dev libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev   ` <br/><br/>
+`sudo apt update` <br/>
+`sudo apt upgrade` <br/>
+`sudo apt-get install -y make build-essential python3-setuptools python3-pip wget curl xz-utils` <br/>
+`sudo apt-get install -y openssl libssl-dev tk-dev llvm python3-smbus2` <br/>
+`sudo apt-get install -y libbz2-dev libc6-dev libdb5.3-dev libexpat1-dev libffi-dev libgdbm-dev zlib1g-dev` <br/>
+`sudo apt-get install -y liblzma-dev libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev` <br/><br/>
 2. [ ] **Download Python 3.9.19 (XZ compressed source tarball) from https://www.python.org/downloads/source/** <br/>
 `wget -P $HOME/Downloads https://www.python.org/ftp/python/3.9.19/Python-3.9.19.tar.xz` <br/><br/>
 3. [ ] **Extract downloaded Python's source code** <br/>
-`tar -xvf $HOME/Downloads/Python-3.9.19.tar.xz` <br/><br/>
+`tar -xvf $HOME/Downloads/Python-3.9.19.tar.xz -C $HOME//Downloads` <br/><br/>
 4. [ ] **Configure extracted Python to autoinstall pip, use optimizations, and be installed to /opt/python-3.9.19** <br/>
 _/usr/local/bin = default path where altinstall command places executables when prefix is not configured_ <br/>
 _/opt/python-3.9.19 = path where we configured altinstall command to place executables with --prefix flag_ <br/>
 `cd $HOME/Downloads/Python-3.9.19` <br/>
 `./configure --enable-optimizations --with-ensurepip=install --prefix=/opt/python-3.9.19` <br/><br/>
-5. [ ] **Build Python from source code using make command with 4 parallel processes to speed it up** <br/>
+5. [ ] **Build Python from source code using 4 parallel processes to speed it up** <br/>
 `make -j 4` <br/><br/>
-6. [ ] **Alt-install Python to avoid overwriting system Python** <br/>
+6. [ ] **Alt-install Python from build to avoid overwriting system Python** <br/>
 `sudo make altinstall` <br/><br/>
 7. [ ] **Verify successful alt-installation of Python** <br/>
 `export PATH=/opt/python-3.9.19/bin:$PATH` <br/><br/>
@@ -246,7 +250,7 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 
 ### 6.3 Create isolated Python virtual environment for GrowHub project 
 1. [ ] **Install pipx tool that allows to install and manage python packages (smarter pip)** <br/>
-`sudo apt install pipx` <br/>
+`sudo apt-get install -y pipx` <br/>
 `pipx ensurepath` <br/>
 `eval "$(register-python-argcomplete pipx)"` <br/><br/>
 2. [ ] **Install virtualenv that allows to create isolated Python environments** <br/>
@@ -254,21 +258,12 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 3. [ ] **Verify successful installation of virtualenv** <br/>
 `virtualenv --help` <br/><br/>
 4. [ ] **Create Python virtual environment for GrowHub project named venv** <br/>
-`cd $HOME/Projects/GrowHub`
+`cd $HOME/Projects/GrowHub` <br/>
 `virtualenv -p /opt/python-3.9.19/bin/python3.9 venv` <br/><br/>
-5. [ ] **Verify successful creation of Python virtual environment by activating it** <br/>
-`source venv/bin/activate` <br/>
-`which python` <br/>
-`python --version` <br/>
-`deactivate` <br/>
-`which python` <br/>
-`python --version` <br/><br/>
-6. [ ] **Restart the Raspberry Pi** <br/>
-`sudo reboot` <br/><br/>
 
-### 6.4 Install needed python libraries for GrowHub project
+### 6.4 Install python libraries in virtual environment
 1. [ ] **Activate GrowHub's virtual environment and verify its correct path and version** <br/>
-`cd $HOME/Projects/GrowHub`
+`cd $HOME/Projects/GrowHub` <br/>
 `source venv/bin/activate` <br/>
 `which python` <br/>
 `python --version` <br/><br/>
@@ -276,16 +271,83 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 `python -m pip install --upgrade pip` <br/><br/>
 3. [ ] **List python libraries that are already installed in GrowHub's virtual environment** <br/>
 `python -m pip list` <br/><br/>
-4. [ ] **Install remaining python libraries needed for GrowHub project into its virtual environment** <br/>
-`pip install setuptools wheel docutils python-dateutil` <br/>
-`pip install smbus3 RPi.GPIO pigpio bme680` <br/><br/>
-5. [ ] **List outdated python libraries in GrowHub's virtual environment** <br/>
+4. [ ] **Install python libraries needed for core functionality** <br/>
+`pip install --upgrade setuptools wheel` <br/><br/>
+5. [ ] **Install python libraries needed for communication with Raspberry Pi interfaces** <br/>
+`pip install --upgrade smbus3 RPi.GPIO pigpio` <br/><br/>
+6. [ ] **Install python libraries needed for communication with sensors** <br/>
+`pip install --upgrade bme680 adafruit-circuitpython-seesaw atlas-i2c` <br/><br/>
+7. [ ] **Install needed python utility libraries** <br/>
+`pip install --upgrade docutils python-dateutil` <br/><br/>
+8. [ ] **List outdated python libraries in GrowHub's virtual environment** <br/>
 `python -m pip list --outdated` <br/><br/>
    * _... if there are any outdated libraries:_ <br/>
    1. [ ] **Update outdated python libraries** <br/>
    pip install --upgrade `pip list --outdated | awk 'NR>2 {print $1}'` <br/><br/>
+9. [ ] **Deactivate GrowHub's virtual environment** <br/>
+`deactivate` <br/><br/>
 
-### 6.5 Installation of needed software tools for GrowHub project
+### 6.5 Install software packages
+1. [ ] **Install git distributed revision control system that also allows to fetch a project or package from GitHub** <br/>
+`sudo apt-get install -y git git-lfs` <br/><br/>
+2. [ ] **Install needed packages for core functionality** <br/>
+`sudo apt-get install -y python3-setuptools cmake` <br/><br/>
+3. [ ] **Install software packages needed for communication with Raspberry Pi interfaces** <br/>
+`sudo apt-get install -y python3-rpi.gpio rpi.gpio-common i2c-tools` <br/><br/>
+4. [ ] **Install needed utility software packages** <br/>
+`sudo apt-get install -y mtools dosfstools gettext` <br/><br/>
+
+### 6.6 Manually install pigpio tool with pigpiod daemon
+_pigpio installed with apt doesn't support remote access_
+1. [ ] **Download last version of pigpio from https://github.com/joan2937/pigpio** <br/>
+`wget -P $HOME/Downloads https://github.com/joan2937/pigpio/archive/master.zip` <br/><br/>
+2. [ ] **Extract downloaded pigpio's source code** <br/>
+`unzip $HOME/Downloads/master.zip -d $HOME/Downloads` <br/><br/>
+3. [ ] **Build pigpio from source code** <br/>
+`cd $HOME/Downloads/pigpio-master` <br/>
+`make` <br/><br/>
+4. [ ] **Install pigpio from build** <br/>
+`sudo make install` <br/><br/>
+5. [ ] **Create root cron job to autostart pigpiod daemon on system boot** <br/>
+`sudo crontab -e` <br/>
+_... type `1` and press `Enter` when run for the first time to edit with Nano editor_ <br/>
+_... add `@reboot              /usr/local/bin/pigpiod` to the end of the crontab file and save_ <br/>
+_... Ctrl + O to save / Ctrl + X to exit_ <br/><br/>
+6. [ ] **Verify successful creation of cron job for root user** <br/>
+`sudo crontab -l -u root` <br/><br/>
+7. [ ] **Restart the Raspberry Pi** <br/>
+`sudo reboot` <br/><br/>
+8. [ ] **Verify successful autostart of pigpiod daemon on system boot** <br/>
+`sudo pigpiod -v` <br/><br/>
+
+### 6.7 Manually install firmware for Pimoroni BME680 Breakout
+1. [ ] **Clone last version of firmware for Pimoroni BME680 Breakout from https://github.com/pimoroni/bme680-python** <br/>
+`sudo git clone https://github.com/pimoroni/bme680-python /opt/bme680` <br/><br/>
+2. [ ] **Activate GrowHub's virtual environment and verify its correct path and version** <br/>
+`cd $HOME/Projects/GrowHub` <br/>
+`source venv/bin/activate` <br/>
+`which python` <br/>
+`python --version` <br/><br/>
+3. [ ] **Install firmware for the sensor in GrowHub's virtual environment** <br/>
+`cd /opt/bme680` <br/>
+`./install.sh` <br/><br/>
+4. [ ] **Deactivate GrowHub's virtual environment** <br/>
+`deactivate` <br/><br/>
+5. [ ] **Restart the Raspberry Pi** <br/>
+`sudo reboot` <br/><br/>
+
+### 6.8 Manually download firmware for Atlas Scientific EZO Circuit(s)
+1. [ ] **Clone last version of firmware for Atlas Scientific EZO Circuit(s) from https://github.com/AtlasScientific/Raspberry-Pi-sample-code** <br/>
+`sudo git clone https://github.com/AtlasScientific/Raspberry-Pi-sample-code /opt/AtlasScientific_EZO` <br/><br/>
 
 
+# 7. Detection of Raspberry Pi Devices
+
+1. [ ] **List all detected I2C devices connected to Raspberry Pi** <br/>
+`sudo i2cdetect -y 1` <br/>
+_... verify there are connected I2C devices on following addresses:_ <br/>
+`0x36 (54)` _= Adafruit STEMMA Soil Sensor_ <br/>
+`0x63 (99)` _= Atlas Scientific EZO pH Circuit_ <br/>
+`0x64 (100)` _= Atlas Scientific EZO Conductivity Circuit_ <br/>
+`0x76 (118)` _= Pimoroni BME680 Breakout_ <br/><br/>
 
