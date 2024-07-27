@@ -89,7 +89,7 @@ _<user_folder_path> = path to user folder of remote user on remote computer_
    `ssh-add <user_folder_path>\.ssh\id_rsa` <br/> <br/>
 3. [ ] **Copy remote user's public SSH key to Raspberry Pi (from remote computer's terminal as administrator)** <br/>
 _<user_folder_path> = path to user folder of remote user on remote computer_ <br/>
-_<user_name>  = user name of Raspberry Pi OS account to connect as_ <br/>
+_<username>  = username of Raspberry Pi OS account to connect as_ <br/>
 _<ip_address> = IP address of Raspberry Pi to connect to_
    * _on Linux_: <br/>
    `ssh-copy-id <username>@<ip address>`
@@ -101,9 +101,9 @@ _<ip_address> = IP address of Raspberry Pi to connect to_
 1. [ ] **Find the IP address of Raspberry Pi (from Raspberry Pi's terminal)** <br/>
 `hostname -I` <br/><br/>
 2. [ ] **Connect to Raspberry Pi (from remote computer's terminal)** <br/>
-_<user_name> = user name of Raspberry Pi OS account to connect as_ <br/>
+_<username> = username of Raspberry Pi OS account to connect as_ <br/>
 _<ip_address> = IP address of Raspberry Pi to connect to_ <br/>
-`ssh <user_name>@<ip_address>` <br/>
+`ssh <username>@<ip_address>` <br/>
 _... type_ `yes` _when prompted with security warning (first ssh only) and press_ `Enter`<br/><br/>
 
 
@@ -164,9 +164,9 @@ _/dev/i2c-1 = file that manages i2c-1 bus on Raspberry Pi (some python libraries
 `sudo chmod 0666  /etc/udev/rules.d/<rules_file_name>` <br/><br/>
 3. [ ] **Create system user group named i2c (if non-existent)** <br/>
 `sudo groupadd -f -r i2c` <br/><br/>
-4. [ ] **Add user name of logged-in Raspberry Pi OS account to the i2c group** <br/>
-_<user_name> = user name of Raspberry Pi OS account_ <br/>
-`sudo usermod -a -G i2c <user_name>` <br/><br/>
+4. [ ] **Add username of logged-in Raspberry Pi OS account to the i2c group** <br/>
+_<username> = username of Raspberry Pi OS account_ <br/>
+`sudo usermod -a -G i2c <username>` <br/><br/>
 5. [ ] **Restart the Raspberry Pi** <br/>
 `sudo reboot` <br/><br/>
 
@@ -190,9 +190,9 @@ _/dev/gpiomem = file that manages GPIO pins on Raspberry Pi (some python librari
 `sudo chmod 0666  /etc/udev/rules.d/<rules_file_name>` <br/><br/>
 3. [ ] **Create system user group named gpio (if non-existent)** <br/>
 `sudo groupadd -f -r gpio` <br/><br/>
-4. [ ] **Add user name of logged-in Raspberry Pi OS account to the gpio group** <br/>
-_<user_name> = user name of Raspberry Pi OS account_ <br/>
-`sudo usermod -a -G gpio <user_name>` <br/><br/>
+4. [ ] **Add username of logged-in Raspberry Pi OS account to the gpio group** <br/>
+_<username> = username of Raspberry Pi OS account_ <br/>
+`sudo usermod -a -G gpio <username>` <br/><br/>
 5. [ ] **Restart the Raspberry Pi** <br/>
 `sudo reboot` <br/><br/>
 
@@ -222,7 +222,7 @@ https://files.atlas-scientific.com/pi_sample_code.pdf <br/><br/>
 `sudo apt-get install -y liblzma-dev libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev` <br/><br/>
 2. [ ] **Download Python 3.9.19 (XZ compressed source tarball) from https://www.python.org/downloads/source/** <br/>
 `wget -P $HOME/Downloads https://www.python.org/ftp/python/3.9.19/Python-3.9.19.tar.xz` <br/><br/>
-3. [ ] **Extract downloaded Python's source code** <br/>
+3. [ ] **Extract downloaded source code to $HOME//Downloads** <br/>
 `tar -xvf $HOME/Downloads/Python-3.9.19.tar.xz -C $HOME//Downloads` <br/><br/>
 4. [ ] **Configure extracted Python to autoinstall pip, use optimizations, and be installed to /opt/python-3.9.19** <br/>
 _/usr/local/bin = default path where altinstall command places executables when prefix is not configured_ <br/>
@@ -301,7 +301,7 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 _pigpio installed with apt doesn't support remote access_
 1. [ ] **Download last version of pigpio from https://github.com/joan2937/pigpio** <br/>
 `wget -P $HOME/Downloads https://github.com/joan2937/pigpio/archive/master.zip` <br/><br/>
-2. [ ] **Extract downloaded pigpio's source code** <br/>
+2. [ ] **Extract downloaded source code to $HOME/Downloads** <br/>
 `unzip $HOME/Downloads/master.zip -d $HOME/Downloads` <br/><br/>
 3. [ ] **Build pigpio from source code** <br/>
 `cd $HOME/Downloads/pigpio-master` <br/>
