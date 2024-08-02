@@ -2,8 +2,12 @@
 _Project: **GrowHub**_ <br/>
 _Executed: **2024-07-22** on **Raspberry Pi 4 Model B Rev 1.2** (processor BCM2711, revision c03112) with 4GB RAM_ <br/><br/>
 
+
+
 ## 1. Installation of Raspberry Pi OS
-Source: https://www.raspberrypi.com/documentation/computers/os.html <br/><br/>
+___
+Source: https://www.raspberrypi.com/documentation/computers/os.html <br/>
+___
 1. [ ] **Download last version of Raspberry Pi OS (64-bit) image from https://raspberrypi.com/software/operating-systems/** <br/> 
 _Used version: with desktop and no recommended software from 2024-07-04: Linux kernel 6.6.31, Debian version 12 (bookworm)_ <br/><br/>
 2. [ ] **Download last version of Raspberry Pi Imager from https://www.raspberrypi.com/software/** <br/>
@@ -21,7 +25,9 @@ _... type_ `Y` _when prompted for confirmation and press_ `Enter` <br/><br/>
 
 
 ## 2. Firmware Update of Raspberry Pi
-Source: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your-firmware <br/><br/>
+___
+Source: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your-firmware <br/>
+___
 1. [ ] **Update the firmware of Raspberry Pi** <br/>
     * _... to the latest stable version:_ <br/>
     `sudo apt install --reinstall raspi-firmware` <br/>
@@ -32,7 +38,9 @@ Source: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your
 
 
 ## 3. Bios Update of Raspberry Pi
-Source: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-boot-eeprom
+___
+Source: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-boot-eeprom <br/>
+___
 1. [ ] **Update the EEPROM bootloader (bios) of Raspberry Pi to the latest version** <br/>
 `sudo apt update` <br/>
 `sudo rpi-eeprom-update -a` <br/><br/>
@@ -41,8 +49,9 @@ Source: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#ra
 
 
 ## 4. SSH Connection to Raspberry Pi
-Source: https://www.raspberrypi.com/documentation/computers/remote-access.html#access-a-remote-terminal-with-ssh <br/><br/>
-
+___
+Source: https://www.raspberrypi.com/documentation/computers/remote-access.html#access-a-remote-terminal-with-ssh <br/>
+___
 ### 4.1 Enable the SSH server on Raspberry Pi
 1. [ ] **Create an empty file named ssh in the boot partition** <br/>
 `sudo touch /boot/firmware/ssh` <br/> <br/>
@@ -95,7 +104,7 @@ _<ip_address> = IP address of Raspberry Pi to connect to_
    `ssh-copy-id <username>@<ip address>`
    * _on Windows 10_: <br/>
    `type <user_folder_path>\.ssh\id_rsa.pub | ssh <username>@<ip address> "cat >> .ssh/authorized_keys"` <br/>
-   _... enter_ `<password>` _of Raspberry Pi OS user account to connect as, when prompted for password_ <br/><br/><br/>
+   _... enter_ `<password>` _of Raspberry Pi OS user account to connect as, when prompted for password_ <br/><br/>
 
 ### 4.4 Connect to Raspberry Pi's SSH server from remote computer (now without password)
 1. [ ] **Find the IP address of Raspberry Pi (from Raspberry Pi's terminal)** <br/>
@@ -108,13 +117,14 @@ _... type_ `yes` _when prompted with security warning (first ssh only) and press
 
 
 ## 5. Raspberry Pi Configuration
+___
 Sources: <br/>
 https://www.raspberrypi.com/documentation/computers/configuration.html#non-interactive-raspi-config <br/>
 https://www.raspberrypi.com/documentation/computers/configuration.html#device-trees-overlays-and-parameters <br/>
 https://www.raspberrypi.com/documentation/computers/configuration.html#part3 <br/>
 https://www.raspberrypi.com/documentation/computers/configuration.html#configure-uarts <br/>
-https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart <br/><br/>
-
+https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart <br/>
+___
 ### 5.1 Enable necessary communication interfaces
 _by default all non-essential communication interfaces and their kernel modules are disabled on Raspberry Pi_ <br/>
 1. [ ] **Backup the configuration file of Raspberry Pi** <br/>
@@ -198,6 +208,7 @@ _<username> = username of Raspberry Pi OS account_ <br/>
 
 
 ## 6. Installation of GrowHub's Dependencies on Raspberry Pi
+___
 Sources: <br/>
 https://www.python.org/ <br/>
 https://realpython.com/installing-python/#how-to-build-python-from-source-code <br/>
@@ -209,9 +220,9 @@ https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-v
 https://pip.pypa.io/en/stable/user_guide/ <br/>
 https://www.geeksforgeeks.org/crontab-in-linux-with-examples/ <br/>
 https://learn.pimoroni.com/article/getting-started-with-bme680-breakout
-https://learn.adafruit.com/building-circuitpython/linux <br/>
-https://files.atlas-scientific.com/pi_sample_code.pdf <br/><br/>
-
+https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi <br/>
+https://files.atlas-scientific.com/pi_sample_code.pdf <br/>
+___
 ### 6.1 Alt-install custom version of Python to avoid overwriting system Python
 1. [ ] **Install packages needed for Python's successful build creation from source code** <br/>
 `sudo apt update` <br/>
@@ -271,13 +282,13 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 `python -m pip install --upgrade pip` <br/><br/>
 3. [ ] **List python libraries that are already installed in GrowHub's virtual environment** <br/>
 `python -m pip list` <br/><br/>
-4. [ ] **Install python libraries needed for core functionality** <br/>
-`pip install --upgrade setuptools wheel` <br/><br/>
-5. [ ] **Install python libraries needed for communication with Raspberry Pi interfaces** <br/>
+4. [ ] **Install python libraries for core functionality** <br/>
+`pip install --upgrade setuptools wheel typing` <br/><br/>
+5. [ ] **Install python libraries for communication with Raspberry Pi interfaces** <br/>
 `pip install --upgrade smbus3 RPi.GPIO pigpio` <br/><br/>
-6. [ ] **Install python libraries needed for communication with sensors** <br/>
+6. [ ] **Install python libraries for communication with sensors** <br/>
 `pip install --upgrade bme680 adafruit-circuitpython-seesaw atlas-i2c` <br/><br/>
-7. [ ] **Install needed python utility libraries** <br/>
+7. [ ] **Install python utility libraries** <br/>
 `pip install --upgrade docutils python-dateutil` <br/><br/>
 8. [ ] **List outdated python libraries in GrowHub's virtual environment** <br/>
 `python -m pip list --outdated` <br/><br/>
@@ -290,11 +301,13 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 ### 6.5 Install software packages
 1. [ ] **Install git distributed revision control system that also allows to fetch a project or package from GitHub** <br/>
 `sudo apt-get install -y git git-lfs` <br/><br/>
-2. [ ] **Install needed packages for core functionality** <br/>
+2. [ ] **Install software packages for core functionality** <br/>
 `sudo apt-get install -y python3-setuptools cmake` <br/><br/>
-3. [ ] **Install software packages needed for communication with Raspberry Pi interfaces** <br/>
+3. [ ] **Install software packages for communication with Raspberry Pi interfaces** <br/>
 `sudo apt-get install -y python3-rpi.gpio rpi.gpio-common i2c-tools` <br/><br/>
-4. [ ] **Install needed utility software packages** <br/>
+4. [ ] **Install software packages for communication with sensors** <br/>
+`sudo apt-get install -y libgpiod-dev python3-libgpiod` <br/><br/>
+5. [ ] **Install needed utility software packages** <br/>
 `sudo apt-get install -y mtools dosfstools gettext` <br/><br/>
 
 ### 6.6 Manually install pigpio tool with pigpiod daemon
@@ -342,7 +355,7 @@ _... Ctrl + O to save / Ctrl + X to exit_ <br/><br/>
 
 
 # 7. Detection of Raspberry Pi Devices
-
+___
 1. [ ] **List all detected I2C devices connected to Raspberry Pi** <br/>
 `sudo i2cdetect -y 1` <br/>
 _... verify there are connected I2C devices on following addresses:_ <br/>
@@ -350,4 +363,3 @@ _... verify there are connected I2C devices on following addresses:_ <br/>
 `0x63 (99)` _= Atlas Scientific EZO pH Circuit_ <br/>
 `0x64 (100)` _= Atlas Scientific EZO Conductivity Circuit_ <br/>
 `0x76 (118)` _= Pimoroni BME680 Breakout_ <br/><br/>
-

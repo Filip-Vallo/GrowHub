@@ -11,9 +11,6 @@ docs/notes/
 *.docx
 *.xlsx
 
-# 1.4 Diagrams
-docs/technical/diagrams/
-
 
 #### 2. PYCHARM-SPECIFIC RULES ####
 
