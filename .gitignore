@@ -26,7 +26,6 @@ docs/notes/
 
 # 2.3 Generated files
 .idea/**/contentModel.xml
-.idea/**/*.iml
 
 # 2.4 Sensitive or high-churn files
 .idea/**/dataSources/
