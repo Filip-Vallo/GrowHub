@@ -1,15 +1,19 @@
 from .exceptions import (
-    ParameterError,
+    CommandError,
+    CommandArgumentError,
+    CommandDoesNotExistError,
     SensorError,
-    SensorConnectionError,
     SensorConfigurationError,
+    SensorConnectionError,
     SensorReadError
 )
 
 __all__ = [
-    'ParameterError',
+    'CommandError',
+    'CommandArgumentError',
+    'CommandDoesNotExistError',
     'SensorError',
-    'SensorConnectionError',
     'SensorConfigurationError',
+    'SensorConnectionError',
     'SensorReadError'
 ]
