@@ -28,15 +28,20 @@ Usage:
     atmospheric_temperature = sensor_atmospheric.read_temperature()
 """
 
-
-# Imports: Third-party libraries (venv)
+# Application codebase
+from core.exceptions import (
+    ParameterError,
+    SensorConnectionError,
+    SensorConfigurationError,
+    SensorReadError
+)
+# Third-party libraries (venv)
 import bme680
 import board
 from typing import Union, Literal
 from adafruit_seesaw.seesaw import Seesaw
 
 
-# Main classes
 class SensorAtmospheric:
     """
     A class to manage interfacing with the atmospheric sensor: Pimoroni BME680 Breakout.
@@ -92,8 +97,12 @@ class SensorAtmospheric:
                                         "\nReconnect and try again.")
         else:
             try:
-                value = getattr(self.sensor.data, data_type)
-                return round(float(format(value)), 1)
+                if data_type not in ['temperature', 'humidity', 'pressure']:
+                    raise ParameterError(f"Cannot read {data_type} from the atmospheric sensor. Invalid data type."
+                                         f"\nChoose either temperature, humidity, or pressure.")
+                else:
+                    value = getattr(self.sensor.data, data_type)
+                    return round(float(value), 1)
             except AttributeError as e:
                 raise SensorReadError(f"Failed to read {data_type} data from the atmospheric sensor:\n{str(e)}"
                                       f"\nReconnect and try again.")
@@ -138,30 +147,13 @@ class SensorSoil:
         else:
             try:
                 if data_type == 'moisture':
-                    return self.sensor.moisture_read()
+                    value = self.sensor.moisture_read()
                 elif data_type == 'temperature':
-                    return self.sensor.get_temp()
+                    value = self.sensor.get_temp()
+                else:
+                    raise ParameterError(f"Cannot read {data_type} from the soil sensor. Invalid data type."
+                                         f"\nChoose either moisture or temperature.")
+                return round(float(value), 1)
             except AttributeError as e:
                 raise SensorReadError(f"Failed to read {data_type} data from the soil sensor:\n{str(e)}"
                                       f"\nReconnect and try again.")
-
-
-# Exception classes
-class SensorError(Exception):
-    """Base class for sensor-related exceptions."""
-    pass
-
-
-class SensorConnectionError(SensorError):
-    """Exception for sensor connection issues."""
-    pass
-
-
-class SensorConfigurationError(SensorError):
-    """Exception raised when there's an error in configuring the sensor."""
-    pass
-
-
-class SensorReadError(SensorError):
-    """Exception raised when there's an error reading data from the sensor."""
-    pass
