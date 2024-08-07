@@ -51,10 +51,10 @@ from typing import (
 
 class SensorAquatic:
     """
-    Manages interfacing with the aquatic sensors: Atlas Scientific EZO pH and Conductivity sensors.
+    Manages interfacing with the aquatic sensors: Atlas Scientific EZO pH and Conductivity (EC) sensors.
 
-    This class provides methods to connect to the sensors, configure their settings, calibrate pH probe,
-    and read pH and conductivity data.
+    This class provides methods to connect to the sensors via I2C interface, configure their settings,
+    calibrate pH probe, and read pH and conductivity data.
     """
 
     PH_I2C_ADDRESS = 0x63
@@ -122,7 +122,7 @@ class SensorAtmospheric:
     """
     Manages interfacing with the atmospheric sensor: Pimoroni BME680 Breakout.
 
-    This class provides methods to connect to the sensor, configure its settings,
+    This class provides methods to connect to the sensor via I2C interface, configure its settings,
     and read temperature, humidity, and pressure data.
     """
 
@@ -191,7 +191,7 @@ class SensorSoil:
     """
     Manages interfacing with the soil sensor: Adafruit STEMMA Soil Sensor.
 
-    This class provides methods to connect to the sensor, configure its settings,
+    This class provides methods to connect to the sensor via I2C interface, configure its settings,
     and read humidity and temperature data.
     """
 
