@@ -27,7 +27,7 @@ Usage:
 """
 
 # Application codebase
-from core.exceptions import (
+from exceptions import (
     CommandArgumentError,
     SensorConfigurationError,
     SensorConnectionError,
