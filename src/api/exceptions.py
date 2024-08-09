@@ -53,7 +53,7 @@ class CommandError(Exception):
 
 
 class CommandArgumentError(CommandError):
-    """Exception for invalid command argument."""
+    """Raises exception when invalid command argument is provided."""
 
     def __init__(self, message: str, parameter: Optional[str] = None, value: Any = None) -> None:
         super().__init__(message, parameter)
@@ -66,7 +66,7 @@ class CommandArgumentError(CommandError):
 
 
 class CommandDoesNotExistError(CommandError):
-    """Exception for invalid command (class/method/function does not exist)."""
+    """Raises exception when invalid command name is provided (class/method/function does not exist)."""
 
     def __init__(self, message: str, command_name: str) -> None:
         super().__init__(message, parameter=command_name)
@@ -91,7 +91,7 @@ class SensorError(Exception):
 
 
 class SensorCalibrationError(SensorError):
-    """Exception for sensor calibration issues."""
+    """Raises exception when sensor calibration issues are detected."""
 
     def __init__(self, message: str, sensor_type: Optional[str] = None, calibration_point: Optional[str] = None) \
             -> None:
@@ -105,7 +105,7 @@ class SensorCalibrationError(SensorError):
 
 
 class SensorConfigurationError(SensorError):
-    """Exception for sensor configuration issues."""
+    """Raises exception when sensor configuration issues are detected."""
 
     def __init__(self, message: str, sensor_type: Optional[str] = None, config_param: Optional[str] = None) -> None:
         super().__init__(message, sensor_type)
@@ -118,7 +118,7 @@ class SensorConfigurationError(SensorError):
 
 
 class SensorConnectionError(SensorError):
-    """Exception for sensor connection issues."""
+    """Raises exception when sensor connection issues are detected."""
 
     def __init__(self, message: str, sensor_type: Optional[str] = None, connection_details: Any = None) -> None:
         super().__init__(message, sensor_type)
@@ -131,7 +131,7 @@ class SensorConnectionError(SensorError):
 
 
 class SensorReadError(SensorError):
-    """Exception for sensor reading issues."""
+    """Raises exception when sensor reading issues are detected."""
 
     def __init__(self, message: str, sensor_type: Optional[str] = None, data_type: Optional[str] = None) -> None:
         super().__init__(message, sensor_type)
