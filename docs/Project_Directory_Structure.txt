@@ -1,0 +1,29 @@
+GrowHub/
+│
+├── .github/                                # GitHub specific files (if using GitHub)
+│    └── workflows/                         └── # CI/CD pipeline configurations
+├── assets/                                 # Static assets
+│    ├── fonts/                             ├── # Font files
+│    └── images/                            └── # Image files
+├── build/                                  # Build output directory
+├── config/                                 # Configuration logs & playbooks
+├── data/                                   # Data files
+│    ├── samples/                           ├── # Sample data for testing
+│    └── schemas/                           └── # Database schemas
+├── dev/                                    # Development toolchain and exports
+├── docs/                                   # Project documentation
+│    ├── project_management/                ├── # Project management documents
+│    ├── technical/                         ├── # Technical documentation
+│    └── user/                              └── # User documentation
+├── src/                                    # Source code
+│    ├── api/                               ├── # API codebase
+│    ├── backend/                           ├── # Backend codebase
+│    ├── databases/                         ├── # Databases
+│    ├── firmware/                          ├── # Firmware codebase
+│    ├── frontend/                          ├── # Frontend codebase
+│    └── server/                            └── # Web server codebase
+└── tests/                                  # Testing
+     ├── e2e/                               ├── # End-to-end tests
+     ├── integration/                       ├── # Integration tests
+     └── unit/                              └── # Unit tests
+
