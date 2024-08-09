@@ -47,6 +47,10 @@ class CommandError(Exception):
         self.parameter: Optional[str] = parameter
         super().__init__(self.message)
 
+    def __str__(self) -> str:
+        return (f"CommandError: {self.message}"
+                + (f" (Parameter: {self.parameter})" if self.parameter else ""))
+
 
 class CommandArgumentError(CommandError):
     """Exception for invalid command argument."""
@@ -55,6 +59,11 @@ class CommandArgumentError(CommandError):
         super().__init__(message, parameter)
         self.value: Any = value
 
+    def __str__(self) -> str:
+        return (f"CommandArgumentError: {self.message}"
+                + (f" (Parameter: {self.parameter})" if self.parameter else "")
+                + (f" (Value: {self.value})" if self.value is not None else ""))
+
 
 class CommandDoesNotExistError(CommandError):
     """Exception for invalid command (class/method/function does not exist)."""
@@ -62,6 +71,10 @@ class CommandDoesNotExistError(CommandError):
     def __init__(self, message: str, command_name: str) -> None:
         super().__init__(message, parameter=command_name)
         self.command_name: str = command_name
+
+    def __str__(self) -> str:
+        return (f"CommandDoesNotExistError: {self.message}"
+                + f" (Command: {self.command_name})")
 
 
 class SensorError(Exception):
@@ -72,6 +85,10 @@ class SensorError(Exception):
         self.sensor_type: Optional[str] = sensor_type
         super().__init__(self.message)
 
+    def __str__(self) -> str:
+        return (f"SensorError: {self.message}"
+                + (f" (Sensor Type: {self.sensor_type})" if self.sensor_type else ""))
+
 
 class SensorCalibrationError(SensorError):
     """Exception for sensor calibration issues."""
@@ -81,6 +98,11 @@ class SensorCalibrationError(SensorError):
         super().__init__(message, sensor_type)
         self.calibration_point: Optional[str] = calibration_point
 
+    def __str__(self) -> str:
+        return (f"SensorCalibrationError: {self.message}"
+                + (f" (Sensor Type: {self.sensor_type})" if self.sensor_type else "")
+                + (f" (Calibration Point: {self.calibration_point})" if self.calibration_point else ""))
+
 
 class SensorConfigurationError(SensorError):
     """Exception for sensor configuration issues."""
@@ -88,6 +110,11 @@ class SensorConfigurationError(SensorError):
     def __init__(self, message: str, sensor_type: Optional[str] = None, config_param: Optional[str] = None) -> None:
         super().__init__(message, sensor_type)
         self.config_param: Optional[str] = config_param
+
+    def __str__(self) -> str:
+        return (f"SensorConfigurationError: {self.message}"
+                + (f" (Sensor Type: {self.sensor_type})" if self.sensor_type else "")
+                + (f" (Config Parameter: {self.config_param})" if self.config_param else ""))
 
 
 class SensorConnectionError(SensorError):
@@ -97,6 +124,11 @@ class SensorConnectionError(SensorError):
         super().__init__(message, sensor_type)
         self.connection_details: Any = connection_details
 
+    def __str__(self) -> str:
+        return (f"SensorConnectionError: {self.message}"
+                + (f" (Sensor Type: {self.sensor_type})" if self.sensor_type else "")
+                + (f" (Connection Details: {self.connection_details})" if self.connection_details else ""))
+
 
 class SensorReadError(SensorError):
     """Exception for sensor reading issues."""
@@ -104,3 +136,8 @@ class SensorReadError(SensorError):
     def __init__(self, message: str, sensor_type: Optional[str] = None, data_type: Optional[str] = None) -> None:
         super().__init__(message, sensor_type)
         self.data_type: Optional[str] = data_type
+
+    def __str__(self) -> str:
+        return (f"SensorReadError: {self.message}"
+                + (f" (Sensor Type: {self.sensor_type})" if self.sensor_type else "")
+                + (f" (Data Type: {self.data_type})" if self.data_type else ""))
