@@ -29,6 +29,8 @@ Usage:
 """
 
 
+# Third-party imports (venv)
+from typing import Type
 # Codebase imports
 from exceptions import (
     CommandError,
@@ -42,7 +44,25 @@ from exceptions import (
 )
 
 
-def get_exception(exception_name: str):
+__all__ = ['get_exception']
+
+
+class ExceptionDoesNotExistError(Exception):
+    """Raises exception when invalid exception name is provided."""
+    pass
+
+
+def get_exception(exception_name: str) -> Type[Exception]:
+    """
+    Retrieves an exception class by its name.
+
+    Args:
+        exception_name (str): The name of the exception class to retrieve.
+
+    Usage:
+        SensorError = get_exception('SensorError')
+    """
+
     exceptions = {
         'CommandError': CommandError,
         'CommandArgumentError': CommandArgumentError,
@@ -53,4 +73,9 @@ def get_exception(exception_name: str):
         'SensorConnectionError': SensorConnectionError,
         'SensorReadError': SensorReadError
     }
-    return exceptions.get(exception_name)
+
+    exception_class = exceptions.get(exception_name)
+    if exception_class is None:
+        raise ExceptionDoesNotExistError(f"Unknown exception name: {exception_name}")
+
+    return exception_class
