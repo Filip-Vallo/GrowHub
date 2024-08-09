@@ -1,9 +1,9 @@
-# GrowHub | https://github.com/Filip-Vallo/GrowHub/ | Python 3.9.19
+# GrowHub | https://github.com/Filip-Vallo/GrowHub/ | /src/firmware/ | Python 3.9.19
 
 """
 GrowHub firmware module: sensors
 
-This Python module provides classes to manage interfacing with various connected sensors
+This module provides classes to manage interfacing with various connected sensors
 used in the GrowHub device.
 
 Supported sensors:
@@ -26,14 +26,8 @@ Usage:
     atmospheric_temperature = sensor_atmospheric.read_temperature()
 """
 
-# Application codebase
-from exceptions import (
-    CommandArgumentError,
-    SensorConfigurationError,
-    SensorConnectionError,
-    SensorReadError
-)
-# Third-party libraries (venv)
+
+# Third-party imports (venv)
 import bme680
 import board
 from atlas_i2c import AtlasI2C
@@ -47,6 +41,13 @@ from typing import (
     Literal,
     Union
 )
+# Codebase imports (API)
+from api_client import APIClient
+CommandArgumentError = APIClient.get_exception('CommandArgumentError')
+SensorCalibrationError = APIClient.get_exception('SensorCalibrationError')
+SensorConfigurationError = APIClient.get_exception('SensorConfigurationError')
+SensorConnectionError = APIClient.get_exception('SensorConnectionError')
+SensorReadError = APIClient.get_exception('SensorReadError')
 
 
 class SensorAquatic:
@@ -71,7 +72,7 @@ class SensorAquatic:
             self.ph_sensor = AtlasI2C(address=self.PH_I2C_ADDRESS)
             self.ec_sensor = AtlasI2C(address=self.EC_I2C_ADDRESS)
         except (OSError, IOError) as e:
-            raise SensorConnectionError(f"Failed to connect to aquatic sensors:\n{str(e)}")
+            raise SensorConnectionError(f"Failed to connect to aquatic sensors:\n{str(e)}", sensor_type="Aquatic")
 
     def setup(self) -> None:
         """Configures aquatic sensor settings."""
@@ -82,14 +83,16 @@ class SensorAquatic:
         """Calibrates the pH sensor."""
         if not self.ph_sensor:
             raise SensorConnectionError("pH sensor not connected. Cannot execute calibration."
-                                        "\nReconnect and try again.")
+                                        "\nReconnect and try again.", sensor_type="Aquatic")
         else:
             try:
                 response = self.ph_sensor.query(CalibratePh.format_command(point))
                 if response.status_code != 1:
-                    raise SensorConfigurationError(f"pH calibration failed: {response.data.decode()}")
+                    raise SensorCalibrationError(f"pH calibration failed: {response.data.decode()}",
+                                                 sensor_type="Aquatic", calibration_point=point)
             except AttributeError as e:
-                raise SensorConfigurationError(f"pH calibration failed:\n{str(e)}")
+                SensorCalibrationError(f"pH calibration failed:\n{str(e)}", sensor_type="Aquatic",
+                                       calibration_point=point)
 
     def read_ph(self) -> float:
         """Reads pH value from the sensor."""
@@ -105,17 +108,18 @@ class SensorAquatic:
         sensor = self.ph_sensor if data_type == 'ph' else self.ec_sensor if data_type == 'ec' else None
         if not sensor:
             raise SensorConnectionError(f"{data_type.capitalize()} sensor not connected. Cannot execute data reading."
-                                        "\nReconnect and try again.")
+                                        f"\nReconnect and try again.", sensor_type="Aquatic")
         else:
             try:
                 response = sensor.query(Read.format_command())
                 if response.status_code != 1:
                     raise SensorReadError(f"Failed to read {data_type} data from the aquatic sensor:"
-                                          f"\n{response.data.decode()}\nReconnect and try again.")
+                                          f"\n{response.data.decode()}\nReconnect and try again.",
+                                          parameter="data_type", value=data_type)
                 return round(float(response.data.decode()), self.decimal_precision[data_type])
             except (AttributeError, ValueError) as e:
                 raise SensorReadError(f"Failed to read {data_type} data from the aquatic sensor:\n{str(e)}"
-                                      f"\nReconnect and try again.")
+                                      f"\nReconnect and try again.", sensor_type="Aquatic", data_type=data_type)
 
 
 class SensorAtmospheric:
@@ -137,13 +141,14 @@ class SensorAtmospheric:
         try:
             self.sensor = bme680.BME680(self.I2C_ADDRESS)
         except (OSError, IOError) as e:
-            raise SensorConnectionError(f"Failed to connect to atmospheric sensor:\n{str(e)}")
+            raise SensorConnectionError(f"Failed to connect to atmospheric sensor:\n{str(e)}",
+                                        sensor_type="Atmospheric")
 
     def setup(self) -> None:
         """Configures atmospheric sensor settings."""
         if not self.sensor:
             raise SensorConnectionError("Atmospheric sensor not connected. Cannot execute configuration."
-                                        "\nReconnect and try again.")
+                                        "\nReconnect and try again.", sensor_type="Atmospheric")
         else:
             try:
                 # Oversampling settings
@@ -154,7 +159,7 @@ class SensorAtmospheric:
                 self.sensor.set_filter(bme680.FILTER_SIZE_3)
             except AttributeError as e:
                 raise SensorConfigurationError(f"Atmospheric sensor configuration failed:\n{str(e)}."
-                                               f"\nReconnect and try again.")
+                                               f"\nReconnect and try again.", sensor_type="Atmospheric")
 
     def read_temperature(self) -> float:
         """Reads atmospheric temperature from the sensor."""
@@ -172,19 +177,20 @@ class SensorAtmospheric:
     def _read_sensor_data(self, data_type: Literal['temperature', 'humidity', 'pressure']) -> float:
         """Helper method to read atmospheric sensor data."""
         if not self.sensor:
-            raise SensorConnectionError("Atmospheric sensor not connected. Cannot execute data reading."
-                                        "\nReconnect and try again.")
+            raise SensorConnectionError("Soil sensor not connected. Cannot execute data reading."
+                                        "\nReconnect and try again.", sensor_type="Atmospheric")
         else:
             try:
                 if data_type not in ['temperature', 'humidity', 'pressure']:
-                    raise CommandArgumentError(f"Cannot read {data_type} from the atmospheric sensor. "
-                                               f"Invalid data type.\nChoose either temperature, humidity, or pressure.")
+                    raise CommandArgumentError(f"Cannot read {data_type} from the soil sensor. Invalid data type. "
+                                               f"\nChoose either moisture or temperature.", parameter="data_type",
+                                               value=data_type)
                 else:
                     value = getattr(self.sensor.data, data_type)
                     return round(float(value), self.decimal_precision[data_type])
             except (AttributeError, ValueError) as e:
-                raise SensorReadError(f"Failed to read {data_type} data from the atmospheric sensor:\n{str(e)}"
-                                      f"\nReconnect and try again.")
+                raise SensorReadError(f"Failed to read {data_type} data from the soil sensor:\n{str(e)}"
+                                      f"\nReconnect and try again.", sensor_type="Atmospheric", data_type=data_type)
 
 
 class SensorSoil:
@@ -206,7 +212,7 @@ class SensorSoil:
         try:
             self.sensor = Seesaw(board.I2C(), addr=self.I2C_ADDRESS)
         except (OSError, IOError) as e:
-            raise SensorConnectionError(f"Failed to connect to soil sensor:\n{str(e)}")
+            raise SensorConnectionError(f"Failed to connect to soil sensor:\n{str(e)}", sensor_type="Soil")
 
     def setup(self) -> None:
         """Configures soil sensor settings."""
@@ -226,7 +232,7 @@ class SensorSoil:
         """Helper method to read soil sensor data."""
         if not self.sensor:
             raise SensorConnectionError("Soil sensor not connected. Cannot execute data reading."
-                                        "\nReconnect and try again.")
+                                        "\nReconnect and try again.", sensor_type="Soil")
         else:
             try:
                 if data_type == 'moisture':
@@ -237,7 +243,8 @@ class SensorSoil:
                     return round(float(value), self.decimal_precision[data_type])
                 else:
                     raise CommandArgumentError(f"Cannot read {data_type} from the soil sensor. Invalid data type."
-                                               f"\nChoose either moisture or temperature.")
+                                               f"\nChoose either moisture or temperature.", parameter="data_type",
+                                               value=data_type)
             except (AttributeError, ValueError) as e:
                 raise SensorReadError(f"Failed to read {data_type} data from the soil sensor:\n{str(e)}"
-                                      f"\nReconnect and try again.")
+                                      f"\nReconnect and try again.", sensor_type="Soil", data_type=data_type)
