@@ -104,7 +104,12 @@ class SensorAquatic:
 
     # Protected methods
     def _read_sensor_data(self, data_type: Literal['ph', 'ec']) -> float:
-        """Helper method to read aquatic sensor data."""
+        """
+        Helper method to read aquatic sensor data.
+
+        Args:
+            data_type (str): The name of the parameter to measure
+        """
         sensor = self.ph_sensor if data_type == 'ph' else self.ec_sensor if data_type == 'ec' else None
         if not sensor:
             raise SensorConnectionError(f"{data_type.capitalize()} sensor not connected. Cannot execute data reading."
@@ -175,7 +180,12 @@ class SensorAtmospheric:
 
     # Protected methods
     def _read_sensor_data(self, data_type: Literal['temperature', 'humidity', 'pressure']) -> float:
-        """Helper method to read atmospheric sensor data."""
+        """
+        Helper method to read atmospheric sensor data.
+
+        Args:
+            data_type (str): The name of the parameter to measure
+        """
         if not self.sensor:
             raise SensorConnectionError("Soil sensor not connected. Cannot execute data reading."
                                         "\nReconnect and try again.", sensor_type="Atmospheric")
@@ -229,7 +239,12 @@ class SensorSoil:
 
     # Protected methods
     def _read_sensor_data(self, data_type: Literal['moisture', 'temperature']) -> float:
-        """Helper method to read soil sensor data."""
+        """
+        Helper method to read soil sensor data.
+
+        Args:
+            data_type (str): The name of the parameter to measure
+        """
         if not self.sensor:
             raise SensorConnectionError("Soil sensor not connected. Cannot execute data reading."
                                         "\nReconnect and try again.", sensor_type="Soil")
