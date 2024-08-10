@@ -5,8 +5,11 @@ docs/notes/
 
 # 1.2 Temporary and cache files
 *.tmp
-/temp/
+temp/
 **/__pycache__/
+
+# 1.4 Virtual environments
+venv/
 
 # 1.3 Microsoft Office Suite
 *.docx
