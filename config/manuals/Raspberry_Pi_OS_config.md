@@ -1,4 +1,4 @@
-# RASPBERRY PI OS CONFIGURATION LOG
+# RASPBERRY PI OS CONFIGURATION
 _Project: **GrowHub**_ <br/>
 _Tested: **2024-07-22** on **Raspberry Pi 4 Model B Rev 1.2** (processor BCM2711, revision c03112) with 4GB RAM_ <br/><br/>
 
@@ -6,8 +6,10 @@ _Tested: **2024-07-22** on **Raspberry Pi 4 Model B Rev 1.2** (processor BCM2711
 
 ## 1. Installation of Raspberry Pi OS
 ___
-Source: https://www.raspberrypi.com/documentation/computers/os.html <br/>
+Source: <br/>
+[1]: https://www.raspberrypi.com/documentation/computers/os.html <br/>
 ___
+
 1. [ ] **Download last version of Raspberry Pi OS (64-bit) image from https://raspberrypi.com/software/operating-systems/** <br/> 
 _Used version: with desktop and no recommended software from 2024-07-04: Linux kernel 6.6.31, Debian version 12 (bookworm)_ <br/><br/>
 2. [ ] **Download last version of Raspberry Pi Imager from https://www.raspberrypi.com/software/** <br/>
@@ -26,8 +28,10 @@ _... type_ `Y` _when prompted for confirmation and press_ `Enter` <br/><br/>
 
 ## 2. Firmware Update of Raspberry Pi
 ___
-Source: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your-firmware <br/>
+Source: <br/>
+[2]: https://www.raspberrypi.com/documentation/computers/os.html#upgrade-your-firmware <br/>
 ___
+
 1. [ ] **Update the firmware of Raspberry Pi** <br/>
     * _... to the latest stable version:_ <br/>
     `sudo apt install --reinstall raspi-firmware` <br/>
@@ -39,8 +43,10 @@ ___
 
 ## 3. Bios Update of Raspberry Pi
 ___
-Source: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-boot-eeprom <br/>
+Source: <br/>
+[3]: https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-boot-eeprom <br/>
 ___
+
 1. [ ] **Update the EEPROM bootloader (bios) of Raspberry Pi to the latest version** <br/>
 `sudo apt update` <br/>
 `sudo rpi-eeprom-update -a` <br/><br/>
@@ -50,8 +56,10 @@ ___
 
 ## 4. SSH Connection to Raspberry Pi
 ___
-Source: https://www.raspberrypi.com/documentation/computers/remote-access.html#access-a-remote-terminal-with-ssh <br/>
+Source: <br/>
+[4]: https://www.raspberrypi.com/documentation/computers/remote-access.html#access-a-remote-terminal-with-ssh <br/>
 ___
+
 ### 4.1 Enable the SSH server on Raspberry Pi
 1. [ ] **Create an empty file named ssh in the boot partition** <br/>
 `sudo touch /boot/firmware/ssh` <br/> <br/>
@@ -119,12 +127,13 @@ _... type_ `yes` _when prompted with security warning (first ssh only) and press
 ## 5. Raspberry Pi Configuration
 ___
 Sources: <br/>
-https://www.raspberrypi.com/documentation/computers/configuration.html#non-interactive-raspi-config <br/>
-https://www.raspberrypi.com/documentation/computers/configuration.html#device-trees-overlays-and-parameters <br/>
-https://www.raspberrypi.com/documentation/computers/configuration.html#part3 <br/>
-https://www.raspberrypi.com/documentation/computers/configuration.html#configure-uarts <br/>
-https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart <br/>
+[5]: https://www.raspberrypi.com/documentation/computers/configuration.html#non-interactive-raspi-config <br/>
+[6]: https://www.raspberrypi.com/documentation/computers/configuration.html#device-trees-overlays-and-parameters <br/>
+[7]: https://www.raspberrypi.com/documentation/computers/configuration.html#part3 <br/>
+[8]: https://www.raspberrypi.com/documentation/computers/configuration.html#configure-uarts <br/>
+[9]: https://www.raspberrypi.com/documentation/computers/config_txt.html#enable_uart <br/>
 ___
+
 ### 5.1 Enable necessary communication interfaces
 _by default all non-essential communication interfaces and their kernel modules are disabled on Raspberry Pi_ <br/>
 1. [ ] **Backup the configuration file of Raspberry Pi** <br/>
@@ -210,20 +219,24 @@ _<username> = username of Raspberry Pi OS account_ <br/>
 ## 6. Installation of GrowHub's Dependencies on Raspberry Pi
 ___
 Sources: <br/>
-https://www.python.org/ <br/>
-https://realpython.com/installing-python/#how-to-build-python-from-source-code <br/>
-https://help.dreamhost.com/hc/en-us/articles/115000702772-Installing-a-custom-version-of-Python-3 <br/>
-https://packaging.python.org/en/latest/overview/ <br/>
-https://pipx.pypa.io/stable/docs/ <br/>
-https://virtualenv.pypa.io/en/latest/ <br/>
-https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3 <br/>
-https://pip.pypa.io/en/stable/user_guide/ <br/>
-https://www.geeksforgeeks.org/crontab-in-linux-with-examples/ <br/>
-https://learn.pimoroni.com/article/getting-started-with-bme680-breakout
-https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi <br/>
-https://files.atlas-scientific.com/pi_sample_code.pdf <br/>
+[10]: https://realpython.com/installing-python/#how-to-build-python-from-source-code <br/>
+[11]: https://help.dreamhost.com/hc/en-us/articles/115000702772-Installing-a-custom-version-of-Python-3 <br/>
+[12]: https://pipx.pypa.io/stable/docs/ <br/>
+[13]: https://virtualenv.pypa.io/en/latest/ <br/>
+[14]: https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3 <br/>
+[15]: https://packaging.python.org/en/latest/overview/ <br/>
+[16]: https://pip.pypa.io/en/stable/user_guide/ <br/>
+[17]: https://learn.pimoroni.com/article/getting-started-with-bme680-breakout <br/>
+[18]: https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi <br/>
+[19]: https://files.atlas-scientific.com/pi_sample_code.pdf <br/>
+[20]: https://docs.influxdata.com/influxdb/v2/api-guide/client-libraries/python/ <br/>
+[21]: https://abyz.me.uk/rpi/pigpio/download.html <br/>
+[22]: https://www.geeksforgeeks.org/crontab-in-linux-with-examples/ <br/>
+[23]: https://docs.influxdata.com/influxdb/v2/install/?t=Raspberry+Pi#install-influxdb-as-a-service-with-systemd <br/>
 ___
-### 6.1 Alt-install custom version of Python to avoid overwriting system Python
+
+### 6.1 Alt-install custom version of Python to avoid overwriting system Python <br/> 
+Sources: _[[10](https://realpython.com/installing-python/#how-to-build-python-from-source-code)], [[11](https://help.dreamhost.com/hc/en-us/articles/115000702772-Installing-a-custom-version-of-Python-3)]_
 1. [ ] **Install packages needed for Python's successful build creation from source code** <br/>
 `sudo apt update` <br/>
 `sudo apt upgrade` <br/>
@@ -260,6 +273,7 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 `sudo sh -c "echo -n '\n#Project GrowHub \nexport PATH=\"\$PATH:\$HOME/Projects/GrowHub\"\n' >> $HOME/.profile"` <br/><br/>
 
 ### 6.3 Create isolated Python virtual environment for GrowHub project 
+Sources: _[[12](https://pipx.pypa.io/stable/docs/)], [[13](https://virtualenv.pypa.io/en/latest/)], [[14](https://help.dreamhost.com/hc/en-us/articles/115000695551-Installing-and-using-virtualenv-with-Python-3)]_
 1. [ ] **Install pipx tool that allows to install and manage python packages (smarter pip)** <br/>
 `sudo apt-get install -y pipx` <br/>
 `pipx ensurepath` <br/>
@@ -272,7 +286,8 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 `cd $HOME/Projects/GrowHub` <br/>
 `virtualenv -p /opt/python-3.9.19/bin/python3.9 venv` <br/><br/>
 
-### 6.4 Install python libraries in virtual environment
+### 6.4 Install needed python packages (libraries) in virtual environment
+Sources: _[[15](https://packaging.python.org/en/latest/overview/)], [[16](https://pip.pypa.io/en/stable/user_guide/)], [[17](ttps://learn.pimoroni.com/article/getting-started-with-bme680-breakout)], [[18](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi)], [[19](https://files.atlas-scientific.com/pi_sample_code.pdf)], [[20](https://docs.influxdata.com/influxdb/v2/api-guide/client-libraries/python/)]_
 1. [ ] **Activate GrowHub's virtual environment and verify its correct path and version** <br/>
 `cd $HOME/Projects/GrowHub` <br/>
 `source venv/bin/activate` <br/>
@@ -288,17 +303,20 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 `pip install --upgrade smbus3 RPi.GPIO pigpio` <br/><br/>
 6. [ ] **Install python libraries for communication with sensors** <br/>
 `pip install --upgrade bme680 adafruit-circuitpython-seesaw atlas-i2c` <br/><br/>
-7. [ ] **Install python utility libraries** <br/>
+7. [ ] **Install python database libraries** <br/>
+`pip install --upgrade influxdb-client` <br/><br/>
+8. [ ] **Install python utility libraries** <br/>
 `pip install --upgrade docutils python-dateutil` <br/><br/>
-8. [ ] **List outdated python libraries in GrowHub's virtual environment** <br/>
+9. [ ] **List outdated python libraries in GrowHub's virtual environment** <br/>
 `python -m pip list --outdated` <br/><br/>
    * _... if there are any outdated libraries:_ <br/>
    1. [ ] **Update outdated python libraries** <br/>
    pip install --upgrade `pip list --outdated | awk 'NR>2 {print $1}'` <br/><br/>
-9. [ ] **Deactivate GrowHub's virtual environment** <br/>
+10. [ ] **Deactivate GrowHub's virtual environment** <br/>
 `deactivate` <br/><br/>
 
-### 6.5 Install software packages
+### 6.5 Install needed OS packages with APT
+Sources: _[[17](ttps://learn.pimoroni.com/article/getting-started-with-bme680-breakout)], [[18](https://learn.adafruit.com/circuitpython-on-raspberrypi-linux/installing-circuitpython-on-raspberry-pi)], [[19](https://files.atlas-scientific.com/pi_sample_code.pdf)]_
 1. [ ] **Install git distributed revision control system that also allows to fetch a project or package from GitHub** <br/>
 `sudo apt-get install -y git git-lfs` <br/><br/>
 2. [ ] **Install software packages for core functionality** <br/>
@@ -310,8 +328,9 @@ _.profile file is not read by bash if .bash_profile or .bash_login files exist i
 5. [ ] **Install needed utility software packages** <br/>
 `sudo apt-get install -y mtools dosfstools gettext` <br/><br/>
 
-### 6.6 Manually install pigpio tool with pigpiod daemon
-_pigpio installed with apt doesn't support remote access_
+### 6.6 Manually install pigpio as a service with pigpiod daemon
+Sources: _[[21](https://abyz.me.uk/rpi/pigpio/download.html)], [[22](https://www.geeksforgeeks.org/crontab-in-linux-with-examples/)]_ <br/>
+_pigpio installed with apt doesn't support remote access_ <br/>
 1. [ ] **Download last version of pigpio from https://github.com/joan2937/pigpio** <br/>
 `wget -P $HOME/Downloads https://github.com/joan2937/pigpio/archive/master.zip` <br/><br/>
 2. [ ] **Extract downloaded source code to $HOME/Downloads** <br/>
@@ -319,8 +338,9 @@ _pigpio installed with apt doesn't support remote access_
 3. [ ] **Build pigpio from source code** <br/>
 `cd $HOME/Downloads/pigpio-master` <br/>
 `make` <br/><br/>
-4. [ ] **Install pigpio from build** <br/>
-`sudo make install` <br/><br/>
+4. [ ] **Install pigpio with pigpiod daemon from build** <br/>
+`sudo make install` <br/>
+_... automatically installs pigpiod daemon and creates a systemd service file `/lib/systemd/system/pigpiod.service`_ <br/><br/>
 5. [ ] **Create root cron job to autostart pigpiod daemon on system boot** <br/>
 `sudo crontab -e` <br/>
 _... type `1` and press `Enter` when run for the first time to edit with Nano editor_ <br/>
@@ -334,6 +354,7 @@ _... Ctrl + O to save / Ctrl + X to exit_ <br/><br/>
 `sudo pigpiod -v` <br/><br/>
 
 ### 6.7 Manually install firmware for Pimoroni BME680 Breakout
+Sources: _[[17](https://learn.pimoroni.com/article/getting-started-with-bme680-breakout)]_
 1. [ ] **Clone last version of firmware for Pimoroni BME680 Breakout from https://github.com/pimoroni/bme680-python** <br/>
 `sudo git clone https://github.com/pimoroni/bme680-python /opt/bme680` <br/><br/>
 2. [ ] **Activate GrowHub's virtual environment and verify its correct path and version** <br/>
@@ -350,12 +371,34 @@ _... Ctrl + O to save / Ctrl + X to exit_ <br/><br/>
 `sudo reboot` <br/><br/>
 
 ### 6.8 Manually download firmware for Atlas Scientific EZO Circuit(s)
+Sources: _[[19](https://learn.pimoroni.com/article/getting-started-with-bme680-breakout)]_
 1. [ ] **Clone last version of firmware for Atlas Scientific EZO Circuit(s) from https://github.com/AtlasScientific/Raspberry-Pi-sample-code** <br/>
 `sudo git clone https://github.com/AtlasScientific/Raspberry-Pi-sample-code /opt/AtlasScientific_EZO` <br/><br/>
+
+### 6.9 Manually install InfluxDB database as a service with influxd daemon
+Sources: _[[23](https://docs.influxdata.com/influxdb/v2/install/?t=Raspberry+Pi#install-influxdb-as-a-service-with-systemd)]_
+1. [ ] **Download InfluxData repository for Debian ARM 64-bit (APT keyring file) from https://www.influxdata.com/downloads/** <br/>
+`wget -q https://repos.influxdata.com/influxdata-archive_compat.key` <br/><br/>
+2. [ ] **Sign downloaded InfluxData APT keyring file with line of code provided on download web page** <br/>
+ `echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null` <br/><br/>
+3. [ ] **Add signed InfluxData repository to APT** <br/>
+`echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list` <br/><br/>
+4. [ ] **Install InfluxDB** <br/>
+`sudo apt-get update` <br/>
+`sudo apt-get install -y influxdb2` <br/>
+_... automatically installs influxd daemon and creates a systemd service file `/lib/systemd/system/influxdb.service`_ <br/><br/>
+5. [ ] **Start the InfluxDB service** <br/>
+`sudo service influxdb start` <br/><br/>
+6. [ ] **Restart the Raspberry Pi** <br/>
+`sudo reboot` <br/><br/>
+7. [ ] **Verify successful autostart of influxd daemon on system boot** <br/>
+`sudo service influxdb status` <br/>
+_... press `Q` to quit_ <br/><br/>
 
 
 # 7. Detection of Raspberry Pi Devices
 ___
+
 1. [ ] **List all detected I2C devices connected to Raspberry Pi** <br/>
 `sudo i2cdetect -y 1` <br/>
 _... verify there are connected I2C devices on following addresses:_ <br/>
