@@ -1,6 +1,6 @@
 # RASPBERRY PI OS CONFIGURATION LOG
 _Project: **GrowHub**_ <br/>
-_Executed: **2024-07-22** on **Raspberry Pi 4 Model B Rev 1.2** (processor BCM2711, revision c03112) with 4GB RAM_ <br/><br/>
+_Tested: **2024-07-22** on **Raspberry Pi 4 Model B Rev 1.2** (processor BCM2711, revision c03112) with 4GB RAM_ <br/><br/>
 
 
 
